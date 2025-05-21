@@ -1,42 +1,45 @@
-const { getDefaultConfig } = require("expo/metro-config");
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
+const path = require('path')
+const escape = require('escape-string-regexp')
+const exclusionList = require('metro-config/src/defaults/exclusionList')
+const pak = require('../package.json')
 
-module.exports = (() => {
-  const config = getDefaultConfig(__dirname);
+const root = path.resolve(__dirname, '..')
+const modules = Object.keys({ ...pak.peerDependencies })
 
-  const { transformer, resolver } = config;
+/**
+ * Metro configuration
+ * https://facebook.github.io/metro/docs/configuration
+ *
+ * @type {import('metro-config').MetroConfig}
+ */
+const config = {
+  watchFolders: [root],
 
-  // Update transformer to include SVG support
-  config.transformer = {
-    ...transformer,
-    babelTransformerPath: require.resolve("react-native-svg-transformer/expo"),
-  };
+  // We need to make sure that only one version is loaded for peerDependencies
+  // So we block them at the root, and alias them to the versions in example's node_modules
+  resolver: {
+    blacklistRE: exclusionList(
+      modules.map(
+        (m) =>
+          new RegExp(`^${escape(path.join(root, 'node_modules', m))}\\/.*$`)
+      )
+    ),
 
-  // Update resolver to handle SVG extensions
-  config.resolver = {
-    ...resolver,
-    assetExts: resolver.assetExts.filter((ext) => ext !== "svg"),
-    sourceExts: [...resolver.sourceExts, "svg"],
-  };
+    extraNodeModules: modules.reduce((acc, name) => {
+      acc[name] = path.join(__dirname, 'node_modules', name)
+      return acc
+    }, {}),
+  },
 
-  // Limit watch folders to reduce file watchers
-  config.watchFolders = [
-    // Restrict watching to the current project directory
-    __dirname,
-  ];
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: true,
+      },
+    }),
+  },
+}
 
-  // Add a custom health check route
-  config.server = {
-    enhanceMiddleware: (middleware) => {
-      return (req, res, next) => {
-        if (req.url === "/health") {
-          res.writeHead(200, { "Content-Type": "text/plain" });
-          res.end("OK");
-        } else {
-          return middleware(req, res, next);
-        }
-      };
-    },
-  };
-
-  return config;
-})();
+module.exports = mergeConfig(getDefaultConfig(__dirname), config)

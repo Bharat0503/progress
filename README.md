@@ -1,50 +1,48 @@
-# Welcome to your Expo app 👋
+<div>
+  <img align="right" width="35%" src="../../docs/static/img/example.png">
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+  <h1>Vision Camera playground</h1>
+
+  <h2>Overview</h2>
+
+  <p align="left">
+  This is a demo application featuring some of the many features of the Vision Camera:
+
+  * Photo capture
+  * Video capture
+  * Flipping device (back camera <-> front camera)
+  * Device filtering (ultra-wide-angle, wide-angle, telephoto, or even combined virtual multi-cameras)
+  * Format filtering (targeting 60 FPS, best capture size, best matching aspect ratio, etc.)
+  * Zooming using [react-native-gesture-handler](https://github.com/software-mansion/react-native-gesture-handler) and [react-native-reanimated](https://github.com/software-mansion/react-native-reanimated)
+  * Smoothly switching between constituent camera devices (see [demo on my Twitter](https://twitter.com/mrousavy/status/1365267563375116292))
+  * HDR mode
+  * Night mode
+  * Flash for photo capture
+  * Flash for video capture
+  * Activating/Pausing the Camera but keeping it "warm"
+  * Using the Example Frame Processor Plugin
+  </p>
+</div>
 
 ## Get started
 
-1. Install dependencies
+To try the playground out for yourself, run the following commands:
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```sh
+git clone https://github.com/mrousavy/react-native-vision-camera
+cd react-native-vision-camera/package
+bun bootstrap
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### iOS
 
-## Learn more
+1. Open the `example/ios/VisionCameraExample.xcworkspace` file with Xcode
+2. Change signing configuration to your developer account
+3. Select your device in the devices drop-down
+4. Hit run
 
-To learn more about developing your project with Expo, look at the following resources:
+### Android
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Open the `example/android/` folder with Android Studio
+2. Select your device in the devices drop-down
+3. Hit run
