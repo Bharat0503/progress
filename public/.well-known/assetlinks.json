@@ -1,0 +1,11 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.globalcastmd.essentialsapp.staycurrent",
+    "sha256_cert_fingerprints": [
+      "71:3B:DB:16:CD:2D:E9:52:CE:81:6F:C3:A8:95:67:CA:1B:BA:4F:C6:6D:8A:60:5B:05:88:85:53:59:21:14:A1"
+    ]
+  }
+}]
+
